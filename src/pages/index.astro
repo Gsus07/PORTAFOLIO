@@ -18,6 +18,7 @@ import Layout from '../layouts/Layout.astro';
 
       <ul class="hidden gap-8 md:flex">
         <li><a href="#about" class="nav-link transition-colors duration-300 hover:text-purple-600">Acerca de mí</a></li>
+        <li><a href="#experience" class="nav-link transition-colors duration-300 hover:text-purple-600">Experiencia</a></li>
         <li><a href="#projects" class="nav-link transition-colors duration-300 hover:text-purple-600">Proyectos</a></li>
         <li><a href="#contact" class="nav-link transition-colors duration-300 hover:text-purple-600">Contacto</a></li>
       </ul>
@@ -36,6 +37,7 @@ import Layout from '../layouts/Layout.astro';
       class="hidden flex-col gap-4 bg-white/90 px-4 pb-4 shadow-xl rounded-b-2xl border-b border-white/30 md:hidden"
     >
       <li><a href="#about" class="nav-link transition-colors duration-300 hover:text-purple-600">Acerca de mí</a></li>
+      <li><a href="#experience" class="nav-link transition-colors duration-300 hover:text-purple-600">Experiencia</a></li>
       <li><a href="#projects" class="nav-link transition-colors duration-300 hover:text-purple-600">Proyectos</a></li>
       <li><a href="#contact" class="nav-link transition-colors duration-300 hover:text-purple-600">Contacto</a></li>
     </ul>
@@ -122,6 +124,59 @@ import Layout from '../layouts/Layout.astro';
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Experiencia -->
+  <section id="experience" class="bg-white py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-center text-3xl font-bold text-slate-800 sm:text-4xl mb-2">
+        Experiencia
+      </h2>
+      <p class="mt-2 text-center text-slate-600 mb-8">
+        Un resumen de mi trayectoria profesional y proyectos destacados.
+      </p>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Ejemplo de experiencia 1 -->
+        <div class="rounded-2xl border border-slate-100 bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="inline-block rounded-full bg-indigo-500 px-3 py-1 text-xs font-medium text-white">2023 - Actual</span>
+            <span class="font-semibold text-slate-800">Desarrollador Fullstack</span>
+          </div>
+          <p class="text-sm text-slate-600 mb-2">Empresa XYZ</p>
+          <ul class="list-disc pl-5 text-slate-600 text-sm">
+            <li>Desarrollo de aplicaciones web modernas con React y Node.js.</li>
+            <li>Implementación de APIs REST y bases de datos MongoDB.</li>
+            <li>Colaboración en equipos ágiles y metodologías SCRUM.</li>
+          </ul>
+        </div>
+        <!-- Ejemplo de experiencia 2 -->
+        <div class="rounded-2xl border border-slate-100 bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="inline-block rounded-full bg-purple-500 px-3 py-1 text-xs font-medium text-white">2021 - 2023</span>
+            <span class="font-semibold text-slate-800">Analista de Datos</span>
+          </div>
+          <p class="text-sm text-slate-600 mb-2">Empresa ABC</p>
+          <ul class="list-disc pl-5 text-slate-600 text-sm">
+            <li>Procesamiento y visualización de datos con Python y Power BI.</li>
+            <li>Automatización de reportes y análisis estadístico.</li>
+            <li>Soporte a áreas de negocio en toma de decisiones.</li>
+          </ul>
+        </div>
+        <!-- Ejemplo de experiencia 3 -->
+        <div class="rounded-2xl border border-slate-100 bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="inline-block rounded-full bg-sky-500 px-3 py-1 text-xs font-medium text-white">2020 - 2021</span>
+            <span class="font-semibold text-slate-800">Práctica Profesional</span>
+          </div>
+          <p class="text-sm text-slate-600 mb-2">Startup DEF</p>
+          <ul class="list-disc pl-5 text-slate-600 text-sm">
+            <li>Desarrollo de dashboards interactivos.</li>
+            <li>Integración de APIs externas y manejo de bases de datos.</li>
+            <li>Aprendizaje de metodologías ágiles y trabajo colaborativo.</li>
+          </ul>
         </div>
       </div>
     </div>
