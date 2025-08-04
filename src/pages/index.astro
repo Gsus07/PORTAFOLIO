@@ -667,7 +667,18 @@ import Layout from '../layouts/Layout.astro';
     }, 1800);
   });
 
-  // Slime Easter Egg
+  // Slime Easter Egg con sonido y corrección de posición final
+  // Añadir elemento de audio para el rebote
+  let bounceAudio = document.getElementById('slime-bounce-audio') as HTMLAudioElement | null;
+  if (!bounceAudio) {
+    bounceAudio = document.createElement('audio');
+    bounceAudio.id = 'slime-bounce-audio';
+    bounceAudio.src = '/assets/slime-bounce.mp3'; // Cambia la ruta si tienes otro sonido
+    bounceAudio.preload = 'auto';
+    bounceAudio.style.display = 'none';
+    document.body.appendChild(bounceAudio);
+  }
+
   const slime = document.getElementById('slime');
   slime?.addEventListener('click', () => {
     if (!slime) return;
@@ -677,7 +688,7 @@ import Layout from '../layouts/Layout.astro';
     githubBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
     // Esperar a que el scroll termine (aprox 400ms)
     setTimeout(() => {
-      // Obtener posición del slime y del botón de GitHub
+      // Obtener posición actualizada del slime y del botón de GitHub
       const slimeRect = slime.getBoundingClientRect();
       const btnRect = githubBtn.getBoundingClientRect();
       // Guardar posición original
@@ -690,52 +701,93 @@ import Layout from '../layouts/Layout.astro';
       slime.style.left = `${slimeRect.left}px`;
       slime.style.top = `${slimeRect.top}px`;
       slime.style.zIndex = '1000';
-      // Calcular destino (centro del botón)
-      const startX = slimeRect.left;
-      const startY = slimeRect.top;
-      const endX = btnRect.left + btnRect.width/2 - slimeRect.width/2;
-      const endY = btnRect.top + btnRect.height/2 - slimeRect.height/2;
-      // Parámetros de la parábola
-      const jumpHeight = Math.max(120, Math.abs(endY - startY) * 0.6); // altura máxima del salto
-      const duration = 1100; // ms
-      let startTime: number | null = null;
-      function animateSlime(ts: number) {
-        if (!slime) return;
-        if (!startTime) startTime = ts;
-        const elapsed = ts - (startTime as number);
-        const t = Math.min(elapsed / duration, 1);
-        // Interpolación lineal para X
-        const x = startX + (endX - startX) * t;
-        // Trayectoria parabólica para Y
-        const y = startY + (endY - startY) * t - jumpHeight * Math.sin(Math.PI * t);
-        slime.style.left = `${x}px`;
-        slime.style.top = `${y}px`;
-        slime.style.transform = `scale(${1 + 0.2 * Math.sin(Math.PI * t)})`;
-        if (t < 1) {
-          requestAnimationFrame(animateSlime);
-        } else {
-          slime.style.left = `${endX}px`;
-          slime.style.top = `${endY}px`;
-          slime.style.transform = '';
-          slime.classList.add('slime-jump'); // rebote final
-          setTimeout(() => {
-            if (!slime) return;
-            slime.classList.remove('slime-jump');
-            // Restaurar posición original
-            slime.style.position = origPosition || '';
-            slime.style.left = '';
-            slime.style.top = '';
-            slime.style.right = origRight || '32px';
-            slime.style.bottom = origBottom || '32px';
-            slime.style.zIndex = '60';
-            if (githubBtn instanceof HTMLAnchorElement) {
-              githubBtn.focus();
-              githubBtn.click();
-            }
-          }, 400);
+      // Calcular destino (centro del botón) usando getBoundingClientRect actualizado
+      let startX = slimeRect.left;
+      let startY = slimeRect.top;
+      // Siempre recalcular la posición final justo antes del último salto
+      function getEndCoords() {
+        if (!(githubBtn instanceof HTMLAnchorElement)) {
+          // Si el botón no existe, regresa la posición actual del slime
+          return { x: slimeRect.left, y: slimeRect.top };
         }
+        const btnRectFinal = githubBtn.getBoundingClientRect();
+        return {
+          x: btnRectFinal.left + btnRectFinal.width/2 - slimeRect.width/2,
+          y: btnRectFinal.top + btnRectFinal.height/2 - slimeRect.height/2
+        };
       }
-      requestAnimationFrame(animateSlime);
+      const bounces = 4;
+      const points: Array<{x:number, y:number}> = [];
+      for (let i = 1; i <= bounces; i++) {
+        const t = i / bounces;
+        const px = startX + (getEndCoords().x - startX) * t + (Math.random()-0.5)*40;
+        const py = startY + (getEndCoords().y - startY) * t - 80 * Math.abs(Math.sin(Math.PI * t));
+        points.push({x: px, y: py});
+      }
+      // Último punto: recalcular para asegurar que termina sobre el botón
+      const endCoords = getEndCoords();
+      points.push({x: endCoords.x, y: endCoords.y});
+      // Animar saltos encadenados con sonido
+      let current = 0;
+      function jumpToNext() {
+        if (!slime) return;
+        const fromX = current === 0 ? startX : points[current-1].x;
+        const fromY = current === 0 ? startY : points[current-1].y;
+        // Si es el último salto, recalcular destino
+        const toX = current === points.length-1 ? getEndCoords().x : points[current].x;
+        const toY = current === points.length-1 ? getEndCoords().y : points[current].y;
+        const jumpHeight = Math.max(60, Math.abs(toY - fromY) * 0.7);
+        const duration = 350;
+        let startTime: number | null = null;
+        let playedSound = false;
+        function animateBounce(ts: number) {
+          if (!slime) return;
+          if (!startTime) startTime = ts;
+          const elapsed = ts - (startTime as number);
+          const t = Math.min(elapsed / duration, 1);
+          const x = fromX + (toX - fromX) * t;
+          const y = fromY + (toY - fromY) * t - jumpHeight * Math.sin(Math.PI * t);
+          slime.style.left = `${x}px`;
+          slime.style.top = `${y}px`;
+          slime.style.transform = `scale(${1 + 0.18 * Math.sin(Math.PI * t)})`;
+          // Sonido de rebote al inicio de cada salto
+          if (!playedSound && bounceAudio) {
+            bounceAudio.currentTime = 0;
+            bounceAudio.play();
+            playedSound = true;
+          }
+          if (t < 1) {
+            requestAnimationFrame(animateBounce);
+          } else {
+            slime.style.left = `${toX}px`;
+            slime.style.top = `${toY}px`;
+            slime.style.transform = '';
+            current++;
+            if (current < points.length) {
+              setTimeout(jumpToNext, 60);
+            } else {
+              slime.classList.add('slime-jump'); // rebote final
+              setTimeout(() => {
+                if (!slime) return;
+                slime.classList.remove('slime-jump');
+                // Restaurar posición original
+                slime.style.position = origPosition || '';
+                slime.style.left = '';
+                slime.style.top = '';
+                slime.style.right = origRight || '32px';
+                slime.style.bottom = origBottom || '32px';
+                slime.style.zIndex = '60';
+                if (githubBtn instanceof HTMLAnchorElement) {
+                  githubBtn.focus();
+                  githubBtn.click();
+                }
+              }, 400);
+            }
+          }
+        }
+        requestAnimationFrame(animateBounce);
+      }
+      jumpToNext();
     }, 400);
   });
 </script>
