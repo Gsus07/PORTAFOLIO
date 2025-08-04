@@ -432,6 +432,31 @@ import Layout from '../layouts/Layout.astro';
     </div>
     <div class="absolute left-0 right-0 bottom-0 h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-slate-800 opacity-40"></div>
   </footer>
+
+  <!-- Slime Easter Egg -->
+  <div id="slime" title="¡Slime!">
+    <svg viewBox="0 0 64 64" width="64" height="64" fill="none">
+      <ellipse cx="32" cy="48" rx="24" ry="14" fill="#9333ea" />
+      <ellipse cx="32" cy="44" rx="20" ry="10" fill="#a78bfa" />
+      <ellipse cx="32" cy="38" rx="16" ry="8" fill="#fff" opacity=".5" />
+      <circle cx="24" cy="44" r="4" fill="#fff" />
+      <circle cx="40" cy="44" r="4" fill="#fff" />
+      <ellipse cx="32" cy="54" rx="8" ry="3" fill="#6366f1" />
+      <ellipse cx="32" cy="52" rx="6" ry="2" fill="#fff" opacity=".3" />
+      <ellipse cx="32" cy="50" rx="4" ry="1.2" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="46" rx="2.5" ry="0.7" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="44" rx="1.5" ry="0.4" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="42" rx="1" ry="0.2" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="40" rx="0.5" ry="0.1" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="38" rx="0.2" ry="0.05" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="36" rx="0.1" ry="0.02" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="34" rx="0.05" ry="0.01" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="32" rx="0.02" ry="0.005" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="30" rx="0.01" ry="0.002" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="28" rx="0.005" ry="0.001" fill="#fff" opacity=".2" />
+      <ellipse cx="32" cy="26" rx="0.002" ry="0.0005" fill="#fff" opacity=".2" />
+    </svg>
+  </div>
 </Layout>
 
 <style>
@@ -580,16 +605,38 @@ import Layout from '../layouts/Layout.astro';
   }
   /* Transición suave para las opciones de la navbar */
   .nav-link {
-    transition: color 0.3s cubic-bezier(.4,0,.2,1),
-                transform 0.25s cubic-bezier(.4,0,.2,1);
+    transition: color 0.6s cubic-bezier(.4,0,.2,1),
+                transform 0.45s cubic-bezier(.4,0,.2,1);
     will-change: color, transform;
     display: inline-block;
   }
   .nav-link:hover {
     color: #9333ea; /* color hover ya definido */
-    transform: scale(1.12);
-    text-shadow: 0 2px 8px #a78bfa44;
+    transform: scale(1.14);
+    text-shadow: 0 2px 12px #a78bfa44;
   }
+
+  /* Slime Easter Egg */
+  #slime {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    z-index: 60;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+    transition: filter 0.3s;
+    filter: drop-shadow(0 4px 16px #9333ea55);
+    animation: slime-idle 2.2s infinite cubic-bezier(.4,0,.2,1);
+  }
+  @keyframes slime-idle {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.08, 0.92) translateY(-8px); }
+  }
+  .slime-jump {
+    animation: slime-jump 1.2s cubic-bezier(.4,0,.2,1) forwards;
+  }
+  /* La animación real se hará con JS usando transform, pero dejamos la clase para el rebote final */
 </style>
 <script>
   // Navbar móvil
@@ -618,5 +665,77 @@ import Layout from '../layouts/Layout.astro';
       btn.classList.remove('bg-green-500');
       form.reset();
     }, 1800);
+  });
+
+  // Slime Easter Egg
+  const slime = document.getElementById('slime');
+  slime?.addEventListener('click', () => {
+    if (!slime) return;
+    const githubBtn = document.querySelector('a[href="https://github.com/Gsus07"]');
+    if (!(githubBtn instanceof HTMLAnchorElement)) return;
+    // Scroll automático al botón de GitHub si no está visible
+    githubBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Esperar a que el scroll termine (aprox 400ms)
+    setTimeout(() => {
+      // Obtener posición del slime y del botón de GitHub
+      const slimeRect = slime.getBoundingClientRect();
+      const btnRect = githubBtn.getBoundingClientRect();
+      // Guardar posición original
+      const origRight = slime.style.right;
+      const origBottom = slime.style.bottom;
+      const origPosition = slime.style.position;
+      slime.style.position = 'fixed';
+      slime.style.right = '';
+      slime.style.bottom = '';
+      slime.style.left = `${slimeRect.left}px`;
+      slime.style.top = `${slimeRect.top}px`;
+      slime.style.zIndex = '1000';
+      // Calcular destino (centro del botón)
+      const startX = slimeRect.left;
+      const startY = slimeRect.top;
+      const endX = btnRect.left + btnRect.width/2 - slimeRect.width/2;
+      const endY = btnRect.top + btnRect.height/2 - slimeRect.height/2;
+      // Parámetros de la parábola
+      const jumpHeight = Math.max(120, Math.abs(endY - startY) * 0.6); // altura máxima del salto
+      const duration = 1100; // ms
+      let startTime: number | null = null;
+      function animateSlime(ts: number) {
+        if (!slime) return;
+        if (!startTime) startTime = ts;
+        const elapsed = ts - (startTime as number);
+        const t = Math.min(elapsed / duration, 1);
+        // Interpolación lineal para X
+        const x = startX + (endX - startX) * t;
+        // Trayectoria parabólica para Y
+        const y = startY + (endY - startY) * t - jumpHeight * Math.sin(Math.PI * t);
+        slime.style.left = `${x}px`;
+        slime.style.top = `${y}px`;
+        slime.style.transform = `scale(${1 + 0.2 * Math.sin(Math.PI * t)})`;
+        if (t < 1) {
+          requestAnimationFrame(animateSlime);
+        } else {
+          slime.style.left = `${endX}px`;
+          slime.style.top = `${endY}px`;
+          slime.style.transform = '';
+          slime.classList.add('slime-jump'); // rebote final
+          setTimeout(() => {
+            if (!slime) return;
+            slime.classList.remove('slime-jump');
+            // Restaurar posición original
+            slime.style.position = origPosition || '';
+            slime.style.left = '';
+            slime.style.top = '';
+            slime.style.right = origRight || '32px';
+            slime.style.bottom = origBottom || '32px';
+            slime.style.zIndex = '60';
+            if (githubBtn instanceof HTMLAnchorElement) {
+              githubBtn.focus();
+              githubBtn.click();
+            }
+          }, 400);
+        }
+      }
+      requestAnimationFrame(animateSlime);
+    }, 400);
   });
 </script>
