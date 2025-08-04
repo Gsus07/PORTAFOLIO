@@ -578,6 +578,18 @@ import Layout from '../layouts/Layout.astro';
     border-color: #ef4444;
     box-shadow: 0 0 0 2px #ef444433;
   }
+  /* Transición suave para las opciones de la navbar */
+  .nav-link {
+    transition: color 0.3s cubic-bezier(.4,0,.2,1),
+                transform 0.25s cubic-bezier(.4,0,.2,1);
+    will-change: color, transform;
+    display: inline-block;
+  }
+  .nav-link:hover {
+    color: #9333ea; /* color hover ya definido */
+    transform: scale(1.12);
+    text-shadow: 0 2px 8px #a78bfa44;
+  }
 </style>
 <script>
   // Navbar móvil
