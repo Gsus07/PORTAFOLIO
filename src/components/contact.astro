@@ -1,0 +1,141 @@
+---
+// Contact component
+---
+
+<!-- Contact -->
+<section id="contact" class="py-24 bg-gradient-to-br from-slate-50 to-indigo-50">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-center text-3xl font-bold text-slate-800 sm:text-4xl">
+      Contacto
+    </h2>
+    <p class="mt-2 text-center text-slate-600">
+      ¿Tienes un proyecto en mente? ¡Hablemos!
+    </p>
+
+    <div class="mt-12 grid gap-12 lg:grid-cols-2">
+      <div class="space-y-6">
+        <!-- Ubicación -->
+        <div class="flex items-start gap-4 rounded-2xl bg-white p-4 shadow-md">
+          <div
+            class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-800">Ubicación</h3>
+            <p class="text-sm text-slate-600">Valledupar, Cesar, Colombia</p>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="flex items-start gap-4 rounded-2xl bg-white p-4 shadow-md">
+          <div
+            class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-800">Email</h3>
+            <p class="text-sm text-slate-600">jesuscafo15@gmail.com</p>
+          </div>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="flex items-start gap-4 rounded-2xl bg-white p-4 shadow-md">
+          <div
+            class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 ..."/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-800">Teléfono</h3>
+            <p class="text-sm text-slate-600">+573046142863</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulario -->
+      <form id="contact-form" class="space-y-6 rounded-2xl bg-white p-6 shadow-md" autocomplete="off">
+        <div>
+          <input
+            type="text"
+            placeholder="Tu nombre"
+            required
+            class="w-full rounded-lg border border-slate-200 p-3 text-sm focus:border-indigo-500 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <input
+            type="email"
+            placeholder="Tu email"
+            required
+            class="w-full rounded-lg border border-slate-200 p-3 text-sm focus:border-indigo-500 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Asunto"
+            required
+            class="w-full rounded-lg border border-slate-200 p-3 text-sm focus:border-indigo-500 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <textarea
+            rows="5"
+            placeholder="Tu mensaje"
+            required
+            class="w-full rounded-lg border border-slate-200 p-3 text-sm focus:border-indigo-500 focus:outline-none transition-all duration-300"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-500"
+        >
+          Enviar mensaje
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Formulario con animación de éxito
+  document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement | null;
+    if (!form) return;
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    if (!btn) return;
+    btn.disabled = true;
+    btn.textContent = '¡Enviado!';
+    btn.classList.add('bg-green-500');
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = 'Enviar mensaje';
+      btn.classList.remove('bg-green-500');
+      form.reset();
+    }, 1800);
+  });
+</script>

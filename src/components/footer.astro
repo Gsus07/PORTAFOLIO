@@ -1,0 +1,190 @@
+<!-- Footer -->
+<footer class="bg-slate-800 py-8 text-center text-sm text-white relative">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-4">
+    <div class="flex gap-4 mb-2">
+      <a href="https://github.com/Gsus07" target="_blank" class="hover:text-sky-400 transition-colors duration-300">
+        <img src="/img/github.png" alt="GitHub" class="h-6 w-6 inline" />
+      </a>
+      <a href="https://www.linkedin.com/in/jesus-cañaveral-gsus07" target="_blank" class="hover:text-sky-400 transition-colors duration-300">
+        <img src="/img/linkedin.png" alt="LinkedIn" class="h-6 w-6 inline" />
+      </a>
+    </div>
+    <span>© 2025 Jesús Andrés Cañaveral Florez. Todos los derechos reservados.</span>
+  </div>
+  <div class="absolute left-0 right-0 bottom-0 h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-slate-800 opacity-40"></div>
+</footer>
+
+<!-- Slime Easter Egg -->
+<div id="slime" title="¡Slime!">
+  <svg viewBox="0 0 64 64" width="64" height="64" fill="none">
+    <ellipse cx="32" cy="48" rx="24" ry="14" fill="#9333ea" />
+    <ellipse cx="32" cy="44" rx="20" ry="10" fill="#a78bfa" />
+    <ellipse cx="32" cy="38" rx="16" ry="8" fill="#fff" opacity=".5" />
+    <circle cx="24" cy="44" r="4" fill="#fff" />
+    <circle cx="40" cy="44" r="4" fill="#fff" />
+    <ellipse cx="32" cy="54" rx="8" ry="3" fill="#6366f1" />
+    <ellipse cx="32" cy="52" rx="6" ry="2" fill="#fff" opacity=".3" />
+    <ellipse cx="32" cy="50" rx="4" ry="1.2" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="46" rx="2.5" ry="0.7" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="44" rx="1.5" ry="0.4" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="42" rx="1" ry="0.2" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="40" rx="0.5" ry="0.1" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="38" rx="0.2" ry="0.05" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="36" rx="0.1" ry="0.02" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="34" rx="0.05" ry="0.01" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="32" rx="0.02" ry="0.005" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="30" rx="0.01" ry="0.002" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="28" rx="0.005" ry="0.001" fill="#fff" opacity=".2" />
+    <ellipse cx="32" cy="26" rx="0.002" ry="0.0005" fill="#fff" opacity=".2" />
+  </svg>
+</div>
+
+<style>
+  /* Slime Easter Egg */
+  #slime {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    z-index: 60;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+    transition: filter 0.3s;
+    filter: drop-shadow(0 4px 16px #9333ea55);
+    animation: slime-idle 2.2s infinite cubic-bezier(.4,0,.2,1);
+  }
+  @keyframes slime-idle {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.08, 0.92) translateY(-8px); }
+  }
+  .slime-jump {
+    animation: slime-jump 1.2s cubic-bezier(.4,0,.2,1) forwards;
+  }
+  /* La animación real se hará con JS usando transform, pero dejamos la clase para el rebote final */
+</style>
+
+<script>
+  // Slime Easter Egg con sonido y corrección de posición final
+  // Añadir elemento de audio para el rebote
+  let bounceAudio = document.getElementById('slime-bounce-audio') as HTMLAudioElement | null;
+  if (!bounceAudio) {
+    bounceAudio = document.createElement('audio');
+    bounceAudio.id = 'slime-bounce-audio';
+    bounceAudio.src = '/assets/slime-bounce.mp3'; // Cambia la ruta si tienes otro sonido
+    bounceAudio.preload = 'auto';
+    bounceAudio.style.display = 'none';
+    document.body.appendChild(bounceAudio);
+  }
+
+  const slime = document.getElementById('slime');
+  slime?.addEventListener('click', () => {
+    if (!slime) return;
+    const githubBtn = document.querySelector('a[href="https://github.com/Gsus07"]');
+    if (!(githubBtn instanceof HTMLAnchorElement)) return;
+    // Scroll automático al botón de GitHub si no está visible
+    githubBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Esperar a que el scroll termine (aprox 400ms)
+    setTimeout(() => {
+      // Obtener posición actualizada del slime y del botón de GitHub
+      const slimeRect = slime.getBoundingClientRect();
+      const btnRect = githubBtn.getBoundingClientRect();
+      // Guardar posición original
+      const origRight = slime.style.right;
+      const origBottom = slime.style.bottom;
+      const origPosition = slime.style.position;
+      slime.style.position = 'fixed';
+      slime.style.right = '';
+      slime.style.bottom = '';
+      slime.style.left = `${slimeRect.left}px`;
+      slime.style.top = `${slimeRect.top}px`;
+      slime.style.zIndex = '1000';
+      // Calcular destino (centro del botón) usando getBoundingClientRect actualizado
+      let startX = slimeRect.left;
+      let startY = slimeRect.top;
+      // Siempre recalcular la posición final justo antes del último salto
+      function getEndCoords() {
+        if (!(githubBtn instanceof HTMLAnchorElement)) {
+          // Si el botón no existe, regresa la posición actual del slime
+          return { x: slimeRect.left, y: slimeRect.top };
+        }
+        const btnRectFinal = githubBtn.getBoundingClientRect();
+        return {
+          x: btnRectFinal.left + btnRectFinal.width/2 - slimeRect.width/2,
+          y: btnRectFinal.top + btnRectFinal.height/2 - slimeRect.height/2
+        };
+      }
+      const bounces = 4;
+      const points: Array<{x:number, y:number}> = [];
+      for (let i = 1; i <= bounces; i++) {
+        const t = i / bounces;
+        const px = startX + (getEndCoords().x - startX) * t + (Math.random()-0.5)*40;
+        const py = startY + (getEndCoords().y - startY) * t - 80 * Math.abs(Math.sin(Math.PI * t));
+        points.push({x: px, y: py});
+      }
+      // Último punto: recalcular para asegurar que termina sobre el botón
+      const endCoords = getEndCoords();
+      points.push({x: endCoords.x, y: endCoords.y});
+      // Animar saltos encadenados con sonido
+      let current = 0;
+      function jumpToNext() {
+        if (!slime) return;
+        const fromX = current === 0 ? startX : points[current-1].x;
+        const fromY = current === 0 ? startY : points[current-1].y;
+        // Si es el último salto, recalcular destino
+        const toX = current === points.length-1 ? getEndCoords().x : points[current].x;
+        const toY = current === points.length-1 ? getEndCoords().y : points[current].y;
+        const jumpHeight = Math.max(60, Math.abs(toY - fromY) * 0.7);
+        const duration = 350;
+        let startTime: number | null = null;
+        let playedSound = false;
+        function animateBounce(ts: number) {
+          if (!slime) return;
+          if (!startTime) startTime = ts;
+          const elapsed = ts - (startTime as number);
+          const t = Math.min(elapsed / duration, 1);
+          const x = fromX + (toX - fromX) * t;
+          const y = fromY + (toY - fromY) * t - jumpHeight * Math.sin(Math.PI * t);
+          slime.style.left = `${x}px`;
+          slime.style.top = `${y}px`;
+          slime.style.transform = `scale(${1 + 0.18 * Math.sin(Math.PI * t)})`;
+          // Sonido de rebote al inicio de cada salto
+          if (!playedSound && bounceAudio) {
+            bounceAudio.currentTime = 0;
+            bounceAudio.play();
+            playedSound = true;
+          }
+          if (t < 1) {
+            requestAnimationFrame(animateBounce);
+          } else {
+            slime.style.left = `${toX}px`;
+            slime.style.top = `${toY}px`;
+            slime.style.transform = '';
+            current++;
+            if (current < points.length) {
+              setTimeout(jumpToNext, 60);
+            } else {
+              slime.classList.add('slime-jump'); // rebote final
+              setTimeout(() => {
+                if (!slime) return;
+                slime.classList.remove('slime-jump');
+                // Restaurar posición original
+                slime.style.position = origPosition || '';
+                slime.style.left = '';
+                slime.style.top = '';
+                slime.style.right = origRight || '32px';
+                slime.style.bottom = origBottom || '32px';
+                slime.style.zIndex = '60';
+                if (githubBtn instanceof HTMLAnchorElement) {
+                  githubBtn.focus();
+                  githubBtn.click();
+                }
+              }, 400);
+            }
+          }
+        }
+        requestAnimationFrame(animateBounce);
+      }
+      jumpToNext();
+    }, 400);
+  });
+</script>

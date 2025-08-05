@@ -1,0 +1,87 @@
+<!-- Barra de progreso -->
+<div id="progress-container" class="fixed top-0 left-0 w-full h-1 bg-white/20 z-[60] transition-opacity duration-300">
+  <div id="progress-bar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 transition-all duration-300 ease-out" style="width: 0%"></div>
+</div>
+
+<style>
+  /* Barra de progreso */
+  #progress-bar {
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+  }
+</style>
+
+<script>
+  // Sistema de progreso y detección de secciones
+  const progressBar = document.getElementById('progress-bar');
+  const sections = ['about', 'skills', 'experience', 'projects', 'contact'];
+  let currentSection = 'about';
+
+  function updateProgress() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    
+    if (progressBar) {
+      progressBar.style.width = `${Math.min(scrollPercent, 100)}%`;
+    }
+  }
+
+  function updateActiveSection() {
+    const scrollPosition = window.scrollY + 100; // Offset para el navbar
+    
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const section = document.getElementById(sections[i]);
+      if (section && scrollPosition >= section.offsetTop) {
+        if (currentSection !== sections[i]) {
+          currentSection = sections[i];
+          updateSectionIndicators();
+        }
+        break;
+      }
+    }
+  }
+
+  function updateSectionIndicators() {
+    // Actualizar enlaces del navbar
+    document.querySelectorAll('.nav-link').forEach(link => {
+      const section = link.getAttribute('data-section');
+      const indicator = link.querySelector('.section-indicator');
+      
+      if (!indicator) return;
+      
+      // Remover todas las clases
+      link.classList.remove('active-link');
+      indicator.classList.remove('completed', 'current');
+      
+      if (section === currentSection) {
+        // Sección actual
+        link.classList.add('active-link');
+        indicator.classList.add('current');
+      } else if (sections.indexOf(section || '') < sections.indexOf(currentSection)) {
+        // Sección completada
+        indicator.classList.add('completed');
+      }
+    });
+  }
+
+  // Efecto de scroll en navbar y progreso
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    
+    const navbar = document.querySelector('nav');
+    if (currentScrollY > 100) {
+      navbar?.classList.add('navbar-scrolled');
+    } else {
+      navbar?.classList.remove('navbar-scrolled');
+    }
+    
+    updateProgress();
+    updateActiveSection();
+  });
+
+  // Inicializar indicadores al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    updateProgress();
+    updateActiveSection();
+  });
+</script>
