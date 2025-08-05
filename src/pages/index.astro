@@ -4,9 +4,15 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
+
+  <!-- Barra de progreso -->
+  <div id="progress-container" class="fixed top-0 left-0 w-full h-1 bg-white/20 z-[60] transition-opacity duration-300">
+    <div id="progress-bar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 transition-all duration-300 ease-out" style="width: 0%"></div>
+  </div>
+
   <!-- Navbar -->
   <nav
-    class="fixed top-0 z-50 w-full bg-white/70 backdrop-blur-lg shadow-xl border-b border-white/30 rounded-b-2xl transition-all duration-300 ease-in-out"
+    class="fixed top-1 z-50 w-full bg-white/70 backdrop-blur-lg shadow-xl border-b border-white/30 rounded-b-2xl transition-all duration-300 ease-in-out"
     style="box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);"
   >
     <div
@@ -18,30 +24,53 @@ import Layout from '../layouts/Layout.astro';
 
       <ul class="hidden gap-8 md:flex">
         <li class="relative group">
-          <a href="#about" class="nav-link text-slate-700 transition-all duration-300 ease-out hover:text-purple-600 relative px-4 py-3 rounded-lg hover:bg-white/15 hover:shadow-lg hover:-translate-y-0.5">
-            Acerca de mí
+          <a href="#about" data-section="about" class="nav-link text-slate-700 transition-all duration-300 ease-out hover:text-purple-600 relative px-4 py-3 rounded-lg hover:bg-white/15 hover:shadow-lg hover:-translate-y-0.5">
+            <span class="flex items-center gap-2">
+              <span class="section-indicator w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"></span>
+              Acerca de mí
+            </span>
             <span class="absolute bottom-1 left-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300 ease-out group-hover:w-full group-hover:left-0 rounded-full"></span>
           </a>
         </li>
         <li class="relative group">
-          <a href="#experience" class="nav-link text-slate-700 transition-all duration-300 ease-out hover:text-purple-600 relative px-4 py-3 rounded-lg hover:bg-white/15 hover:shadow-lg hover:-translate-y-0.5">
-            Experiencia
+          <a href="#skills" data-section="skills" class="nav-link text-slate-700 transition-all duration-300 ease-out hover:text-purple-600 relative px-4 py-3 rounded-lg hover:bg-white/15 hover:shadow-lg hover:-translate-y-0.5">
+            <span class="flex items-center gap-2">
+              <span class="section-indicator w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"></span>
+              Habilidades
+            </span>
             <span class="absolute bottom-1 left-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300 ease-out group-hover:w-full group-hover:left-0 rounded-full"></span>
           </a>
         </li>
         <li class="relative group">
-          <a href="#projects" class="nav-link text-slate-700 transition-all duration-300 ease-out hover:text-purple-600 relative px-4 py-3 rounded-lg hover:bg-white/15 hover:shadow-lg hover:-translate-y-0.5">
-            Proyectos
+          <a href="#experience" data-section="experience" class="nav-link text-slate-700 transition-all duration-300 ease-out hover:text-purple-600 relative px-4 py-3 rounded-lg hover:bg-white/15 hover:shadow-lg hover:-translate-y-0.5">
+            <span class="flex items-center gap-2">
+              <span class="section-indicator w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"></span>
+              Experiencia
+            </span>
             <span class="absolute bottom-1 left-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300 ease-out group-hover:w-full group-hover:left-0 rounded-full"></span>
           </a>
         </li>
         <li class="relative group">
-          <a href="#contact" class="nav-link text-slate-700 transition-all duration-300 ease-out hover:text-purple-600 relative px-4 py-3 rounded-lg hover:bg-white/15 hover:shadow-lg hover:-translate-y-0.5">
-            Contacto
+          <a href="#projects" data-section="projects" class="nav-link text-slate-700 transition-all duration-300 ease-out hover:text-purple-600 relative px-4 py-3 rounded-lg hover:bg-white/15 hover:shadow-lg hover:-translate-y-0.5">
+            <span class="flex items-center gap-2">
+              <span class="section-indicator w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"></span>
+              Proyectos
+            </span>
+            <span class="absolute bottom-1 left-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300 ease-out group-hover:w-full group-hover:left-0 rounded-full"></span>
+          </a>
+        </li>
+        <li class="relative group">
+          <a href="#contact" data-section="contact" class="nav-link text-slate-700 transition-all duration-300 ease-out hover:text-purple-600 relative px-4 py-3 rounded-lg hover:bg-white/15 hover:shadow-lg hover:-translate-y-0.5">
+            <span class="flex items-center gap-2">
+              <span class="section-indicator w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"></span>
+              Contacto
+            </span>
             <span class="absolute bottom-1 left-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300 ease-out group-hover:w-full group-hover:left-0 rounded-full"></span>
           </a>
         </li>
       </ul>
+
+
 
       <!-- Hamburger (móvil) -->
       <button id="mobile-menu-btn" class="flex flex-col gap-1 md:hidden focus:outline-none p-3 rounded-xl hover:bg-white/20 transition-all duration-500 hover:scale-110 active:scale-95">
@@ -57,23 +86,43 @@ import Layout from '../layouts/Layout.astro';
       class="hidden flex-col gap-4 bg-white/90 px-4 pb-4 shadow-xl rounded-b-2xl border-b border-white/30 md:hidden transition-all duration-300 ease-in-out"
     >
       <li class="relative group mobile-menu-item opacity-0 translate-y-2">
-        <a href="#about" class="nav-link text-slate-700 transition-all duration-200 ease-out hover:text-purple-600 block px-4 py-3 rounded-lg hover:bg-white/20 hover:shadow-md hover:translate-x-1">
-          Acerca de mí
+        <a href="#about" data-section="about" class="nav-link text-slate-700 transition-all duration-200 ease-out hover:text-purple-600 block px-4 py-3 rounded-lg hover:bg-white/20 hover:shadow-md hover:translate-x-1">
+          <span class="flex items-center gap-2">
+            <span class="section-indicator w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"></span>
+            Acerca de mí
+          </span>
         </a>
       </li>
       <li class="relative group mobile-menu-item opacity-0 translate-y-2">
-        <a href="#experience" class="nav-link text-slate-700 transition-all duration-200 ease-out hover:text-purple-600 block px-4 py-3 rounded-lg hover:bg-white/20 hover:shadow-md hover:translate-x-1">
-          Experiencia
+        <a href="#skills" data-section="skills" class="nav-link text-slate-700 transition-all duration-200 ease-out hover:text-purple-600 block px-4 py-3 rounded-lg hover:bg-white/20 hover:shadow-md hover:translate-x-1">
+          <span class="flex items-center gap-2">
+            <span class="section-indicator w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"></span>
+            Habilidades
+          </span>
         </a>
       </li>
       <li class="relative group mobile-menu-item opacity-0 translate-y-2">
-        <a href="#projects" class="nav-link text-slate-700 transition-all duration-200 ease-out hover:text-purple-600 block px-4 py-3 rounded-lg hover:bg-white/20 hover:shadow-md hover:translate-x-1">
-          Proyectos
+        <a href="#experience" data-section="experience" class="nav-link text-slate-700 transition-all duration-200 ease-out hover:text-purple-600 block px-4 py-3 rounded-lg hover:bg-white/20 hover:shadow-md hover:translate-x-1">
+          <span class="flex items-center gap-2">
+            <span class="section-indicator w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"></span>
+            Experiencia
+          </span>
         </a>
       </li>
       <li class="relative group mobile-menu-item opacity-0 translate-y-2">
-        <a href="#contact" class="nav-link text-slate-700 transition-all duration-200 ease-out hover:text-purple-600 block px-4 py-3 rounded-lg hover:bg-white/20 hover:shadow-md hover:translate-x-1">
-          Contacto
+        <a href="#projects" data-section="projects" class="nav-link text-slate-700 transition-all duration-200 ease-out hover:text-purple-600 block px-4 py-3 rounded-lg hover:bg-white/20 hover:shadow-md hover:translate-x-1">
+          <span class="flex items-center gap-2">
+            <span class="section-indicator w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"></span>
+            Proyectos
+          </span>
+        </a>
+      </li>
+      <li class="relative group mobile-menu-item opacity-0 translate-y-2">
+        <a href="#contact" data-section="contact" class="nav-link text-slate-700 transition-all duration-200 ease-out hover:text-purple-600 block px-4 py-3 rounded-lg hover:bg-white/20 hover:shadow-md hover:translate-x-1">
+          <span class="flex items-center gap-2">
+            <span class="section-indicator w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"></span>
+            Contacto
+          </span>
         </a>
       </li>
     </ul>
@@ -85,6 +134,9 @@ import Layout from '../layouts/Layout.astro';
     class="relative flex min-h-screen items-center bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-600 py-32 text-white overflow-hidden"
     style="background: linear-gradient(120deg, #6366f1 0%, #a78bfa 50%, #9333ea 100%);"
   >
+    <!-- Contenedor de partículas espaciales -->
+    <div id="space-particles" class="absolute inset-0 pointer-events-none z-[1] overflow-hidden"></div>
+    
     <!-- Figuras animadas fondo -->
     <div class="absolute inset-0 pointer-events-none z-0">
       <div class="bg-figura1 animate-figura1 absolute top-10 left-10 w-56 h-56 rounded-full opacity-30"></div>
@@ -110,16 +162,15 @@ import Layout from '../layouts/Layout.astro';
       >
         <div class="flex flex-col items-center text-center lg:items-start lg:text-left animate-fadein">
           <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl drop-shadow-xl">
-            Hola, soy
+            <span id="greeting-text"></span>
             <span
               class="block bg-gradient-to-r from-white to-sky-100 bg-clip-text text-transparent"
+              id="name-text"
             >
-              Jesús Andrés Cañaveral Florez
             </span>
           </h1>
 
-          <p class="mt-4 max-w-lg text-lg opacity-90">
-            Desarrollador y analista apasionado por crear experiencias digitales únicas
+          <p class="mt-4 max-w-lg text-lg opacity-90" id="description-text">
           </p>
 
           <div class="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
@@ -172,53 +223,263 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+  <!-- Sección de Habilidades -->
+  <section id="skills" class="py-24 bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50 relative overflow-hidden">
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-indigo-200 to-purple-200 rounded-full opacity-20 animate-float-slow"></div>
+      <div class="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full opacity-30 animate-float-medium"></div>
+      <div class="absolute top-1/2 left-1/3 w-16 h-16 bg-gradient-to-br from-sky-200 to-indigo-200 rounded-full opacity-25 animate-float-fast"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-slate-800 sm:text-4xl mb-4">
+          Habilidades Técnicas
+        </h2>
+        <p class="text-slate-600 max-w-2xl mx-auto">
+          Tecnologías y herramientas que domino para crear experiencias digitales excepcionales
+        </p>
+      </div>
+
+      <div class="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+        <!-- Frontend -->
+        <div class="skill-card group">
+          <div class="skill-icon bg-gradient-to-br from-orange-400 to-red-500">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+            </svg>
+          </div>
+          <h3 class="skill-title">HTML5</h3>
+        </div>
+
+        <div class="skill-card group">
+          <div class="skill-icon bg-gradient-to-br from-blue-400 to-blue-600">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/>
+            </svg>
+          </div>
+          <h3 class="skill-title">CSS3</h3>
+        </div>
+
+        <div class="skill-card group">
+          <div class="skill-icon bg-gradient-to-br from-yellow-400 to-orange-500">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/>
+            </svg>
+          </div>
+          <h3 class="skill-title">JavaScript</h3>
+        </div>
+
+        <div class="skill-card group">
+          <div class="skill-icon bg-gradient-to-br from-cyan-400 to-blue-500">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.36-.034-.47 0-.92.014-1.36.034.44-.572.895-1.096 1.36-1.564zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.36.034.47 0 .92-.014 1.36-.034-.44.572-.895 1.095-1.36 1.56-.465-.467-.92-.992-1.36-1.56z"/>
+            </svg>
+          </div>
+          <h3 class="skill-title">React</h3>
+        </div>
+
+        <!-- Backend -->
+        <div class="skill-card group">
+          <div class="skill-icon bg-gradient-to-br from-green-500 to-green-600">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.570,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z"/>
+            </svg>
+          </div>
+          <h3 class="skill-title">Node.js</h3>
+        </div>
+
+        <div class="skill-card group">
+          <div class="skill-icon bg-gradient-to-br from-blue-600 to-indigo-600">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.25 2.1l-.4-.2c-.2-.1-.5-.1-.7 0L.85 8.7c-.2.1-.4.4-.4.6v5.4c0 .3.2.5.4.6l12.3 6.8c.2.1.5.1.7 0l12.3-6.8c.2-.1.4-.4.4-.6V9.3c0-.3-.2-.5-.4-.6L14.25 2.1zm-.9 1.8l10.9 6L12 15.9 .75 9.9l10.9-6c.2-.1.5-.1.7 0zm11.4 7.1l-10.9 6c-.2.1-.5.1-.7 0L2.25 11v4.8l10.9 6c.2.1.5.1.7 0l10.9-6V11z"/>
+            </svg>
+          </div>
+          <h3 class="skill-title">Python</h3>
+        </div>
+
+        <!-- Bases de datos -->
+        <div class="skill-card group">
+          <div class="skill-icon bg-gradient-to-br from-green-600 to-teal-600">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.193 9.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523 1.184-.723.566-4.438 3.682-4.74 10.02-.282 5.912 4.27 9.435 4.888 9.884l.07.05A73.49 73.49 0 0111.91 24h.481c.114-1.032.284-2.056.51-3.07.417-.296.604-.463.85-.693a11.342 11.342 0 003.639-8.464c.01-.814-.103-1.662-.197-2.218zm-5.336 8.195s0-8.291.275-8.29c.213 0 .49 10.695.49 10.695-.381-.045-.765-1.76-.765-2.405z"/>
+            </svg>
+          </div>
+          <h3 class="skill-title">MongoDB</h3>
+        </div>
+
+        <!-- Herramientas -->
+        <div class="skill-card group">
+          <div class="skill-icon bg-gradient-to-br from-orange-500 to-red-600">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/>
+            </svg>
+          </div>
+          <h3 class="skill-title">Git</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
     <!-- Experiencia -->
-  <section id="experience" class="bg-white py-24">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-center text-3xl font-bold text-slate-800 sm:text-4xl mb-2">
-        Experiencia
-      </h2>
-      <p class="mt-2 text-center text-slate-600 mb-8">
-        Un resumen de mi trayectoria profesional y proyectos destacados.
-      </p>
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <!-- Ejemplo de experiencia 1 -->
-        <div class="rounded-2xl border border-slate-100 bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="inline-block rounded-full bg-indigo-500 px-3 py-1 text-xs font-medium text-white">2023 - Actual</span>
-            <span class="font-semibold text-slate-800">Desarrollador Fullstack</span>
+  <section id="experience" class="py-24 bg-gradient-to-br from-white via-slate-50 to-indigo-50 relative overflow-hidden">
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full opacity-30 animate-float-slow"></div>
+      <div class="absolute bottom-20 left-20 w-32 h-32 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full opacity-25 animate-float-medium"></div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-slate-800 sm:text-4xl mb-4">
+          Experiencia Profesional
+        </h2>
+        <p class="text-slate-600 max-w-2xl mx-auto">
+          Un recorrido por mi trayectoria profesional y los proyectos que han marcado mi crecimiento
+        </p>
+      </div>
+
+      <!-- Timeline -->
+      <div class="relative max-w-4xl mx-auto">
+        <!-- Línea central del timeline -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 rounded-full opacity-30"></div>
+        
+        <!-- Experiencia 1 -->
+        <div class="timeline-item mb-12 flex items-center">
+          <div class="timeline-content w-5/12 pr-8 text-right">
+            <div class="timeline-card bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <div class="timeline-badge bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
+                2023 - Actual
+              </div>
+              <h3 class="text-xl font-bold text-slate-800 mb-2">Desarrollador Fullstack</h3>
+              <p class="text-indigo-600 font-medium mb-3">Empresa XYZ</p>
+              <ul class="text-slate-600 text-sm space-y-2">
+                <li class="flex items-start gap-2">
+                  <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
+                  Desarrollo de aplicaciones web modernas con React y Node.js
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
+                  Implementación de APIs REST y bases de datos MongoDB
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
+                  Colaboración en equipos ágiles y metodologías SCRUM
+                </li>
+              </ul>
+            </div>
           </div>
-          <p class="text-sm text-slate-600 mb-2">Empresa XYZ</p>
-          <ul class="list-disc pl-5 text-slate-600 text-sm">
-            <li>Desarrollo de aplicaciones web modernas con React y Node.js.</li>
-            <li>Implementación de APIs REST y bases de datos MongoDB.</li>
-            <li>Colaboración en equipos ágiles y metodologías SCRUM.</li>
+          
+          <!-- Punto central del timeline -->
+          <div class="timeline-dot w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full border-4 border-white shadow-lg z-10 flex-shrink-0"></div>
+          
+          <div class="w-5/12 pl-8"></div>
+        </div>
+
+        <!-- Experiencia 2 -->
+        <div class="timeline-item mb-12 flex items-center">
+          <div class="w-5/12 pr-8"></div>
+          
+          <!-- Punto central del timeline -->
+          <div class="timeline-dot w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full border-4 border-white shadow-lg z-10 flex-shrink-0"></div>
+          
+          <div class="timeline-content w-5/12 pl-8">
+            <div class="timeline-card bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <div class="timeline-badge bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
+                2021 - 2023
+              </div>
+              <h3 class="text-xl font-bold text-slate-800 mb-2">Analista de Datos</h3>
+              <p class="text-purple-600 font-medium mb-3">Empresa ABC</p>
+              <ul class="text-slate-600 text-sm space-y-2">
+                <li class="flex items-start gap-2">
+                  <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></span>
+                  Procesamiento y visualización de datos con Python y Power BI
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></span>
+                  Automatización de reportes y análisis estadístico
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></span>
+                  Soporte a áreas de negocio en toma de decisiones
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experiencia 3 -->
+        <div class="timeline-item flex items-center">
+          <div class="timeline-content w-5/12 pr-8 text-right">
+            <div class="timeline-card bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <div class="timeline-badge bg-gradient-to-r from-sky-500 to-indigo-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
+                2020 - 2021
+              </div>
+              <h3 class="text-xl font-bold text-slate-800 mb-2">Práctica Profesional</h3>
+              <p class="text-sky-600 font-medium mb-3">Startup DEF</p>
+              <ul class="text-slate-600 text-sm space-y-2">
+                <li class="flex items-start gap-2 justify-end">
+                  <span class="text-right">Desarrollo de dashboards interactivos</span>
+                  <span class="w-2 h-2 bg-sky-500 rounded-full mt-2 flex-shrink-0"></span>
+                </li>
+                <li class="flex items-start gap-2 justify-end">
+                  <span class="text-right">Integración de APIs externas y manejo de bases de datos</span>
+                  <span class="w-2 h-2 bg-sky-500 rounded-full mt-2 flex-shrink-0"></span>
+                </li>
+                <li class="flex items-start gap-2 justify-end">
+                  <span class="text-right">Aprendizaje de metodologías ágiles y trabajo colaborativo</span>
+                  <span class="w-2 h-2 bg-sky-500 rounded-full mt-2 flex-shrink-0"></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Punto central del timeline -->
+          <div class="timeline-dot w-6 h-6 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full border-4 border-white shadow-lg z-10 flex-shrink-0"></div>
+          
+          <div class="w-5/12 pl-8"></div>
+        </div>
+      </div>
+
+      <!-- Versión móvil del timeline -->
+      <div class="block md:hidden space-y-8">
+        <div class="timeline-card-mobile bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg">
+          <div class="timeline-badge bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
+            2023 - Actual
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 mb-2">Desarrollador Fullstack</h3>
+          <p class="text-indigo-600 font-medium mb-3">Empresa XYZ</p>
+          <ul class="text-slate-600 text-sm space-y-2">
+            <li>• Desarrollo de aplicaciones web modernas con React y Node.js</li>
+            <li>• Implementación de APIs REST y bases de datos MongoDB</li>
+            <li>• Colaboración en equipos ágiles y metodologías SCRUM</li>
           </ul>
         </div>
-        <!-- Ejemplo de experiencia 2 -->
-        <div class="rounded-2xl border border-slate-100 bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="inline-block rounded-full bg-purple-500 px-3 py-1 text-xs font-medium text-white">2021 - 2023</span>
-            <span class="font-semibold text-slate-800">Analista de Datos</span>
+
+        <div class="timeline-card-mobile bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg">
+          <div class="timeline-badge bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
+            2021 - 2023
           </div>
-          <p class="text-sm text-slate-600 mb-2">Empresa ABC</p>
-          <ul class="list-disc pl-5 text-slate-600 text-sm">
-            <li>Procesamiento y visualización de datos con Python y Power BI.</li>
-            <li>Automatización de reportes y análisis estadístico.</li>
-            <li>Soporte a áreas de negocio en toma de decisiones.</li>
+          <h3 class="text-xl font-bold text-slate-800 mb-2">Analista de Datos</h3>
+          <p class="text-purple-600 font-medium mb-3">Empresa ABC</p>
+          <ul class="text-slate-600 text-sm space-y-2">
+            <li>• Procesamiento y visualización de datos con Python y Power BI</li>
+            <li>• Automatización de reportes y análisis estadístico</li>
+            <li>• Soporte a áreas de negocio en toma de decisiones</li>
           </ul>
         </div>
-        <!-- Ejemplo de experiencia 3 -->
-        <div class="rounded-2xl border border-slate-100 bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="inline-block rounded-full bg-sky-500 px-3 py-1 text-xs font-medium text-white">2020 - 2021</span>
-            <span class="font-semibold text-slate-800">Práctica Profesional</span>
+
+        <div class="timeline-card-mobile bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg">
+          <div class="timeline-badge bg-gradient-to-r from-sky-500 to-indigo-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
+            2020 - 2021
           </div>
-          <p class="text-sm text-slate-600 mb-2">Startup DEF</p>
-          <ul class="list-disc pl-5 text-slate-600 text-sm">
-            <li>Desarrollo de dashboards interactivos.</li>
-            <li>Integración de APIs externas y manejo de bases de datos.</li>
-            <li>Aprendizaje de metodologías ágiles y trabajo colaborativo.</li>
+          <h3 class="text-xl font-bold text-slate-800 mb-2">Práctica Profesional</h3>
+          <p class="text-sky-600 font-medium mb-3">Startup DEF</p>
+          <ul class="text-slate-600 text-sm space-y-2">
+            <li>• Desarrollo de dashboards interactivos</li>
+            <li>• Integración de APIs externas y manejo de bases de datos</li>
+            <li>• Aprendizaje de metodologías ágiles y trabajo colaborativo</li>
           </ul>
         </div>
       </div>
@@ -582,6 +843,56 @@ import Layout from '../layouts/Layout.astro';
     color: #9333ea !important;
   }
 
+  .active-link .section-indicator {
+    background: linear-gradient(45deg, #9333ea, #6366f1) !important;
+    box-shadow: 0 0 8px rgba(147, 51, 234, 0.4);
+    transform: scale(1.2);
+  }
+
+  /* Indicadores de progreso */
+  .section-indicator {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .section-indicator.completed {
+    background: linear-gradient(45deg, #10b981, #059669) !important;
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.3);
+  }
+
+  .section-indicator.current {
+    background: linear-gradient(45deg, #f59e0b, #d97706) !important;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+    animation: pulse-indicator 2s infinite;
+  }
+
+  @keyframes pulse-indicator {
+    0%, 100% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% { 
+      transform: scale(1.3);
+      opacity: 0.8;
+    }
+  }
+
+  /* Barra de progreso */
+  #progress-bar {
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+  }
+
+  /* Animación suave para el scroll */
+  .section-transition {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .section-transition.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* Transición suave para el navbar al hacer scroll */
   nav {
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -760,6 +1071,452 @@ import Layout from '../layouts/Layout.astro';
     box-shadow: 0 0 0 2px #ef444433;
   }
 
+  /* Estilos para la sección de habilidades */
+  .skill-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .skill-card:hover::before {
+    left: 100%;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-color: rgba(147, 51, 234, 0.3);
+  }
+
+  .skill-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.75rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .skill-card:hover .skill-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  }
+
+  .skill-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0;
+    transition: color 0.3s ease;
+  }
+
+  .skill-card:hover .skill-title {
+    color: #9333ea;
+  }
+
+
+
+  /* Animaciones de flotación para elementos decorativos */
+  @keyframes float-slow {
+    0%, 100% { 
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% { 
+      transform: translateY(-20px) rotate(5deg);
+    }
+  }
+
+  @keyframes float-medium {
+    0%, 100% { 
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% { 
+      transform: translateY(-15px) rotate(-3deg);
+    }
+  }
+
+  @keyframes float-fast {
+    0%, 100% { 
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% { 
+      transform: translateY(-10px) rotate(8deg);
+    }
+  }
+
+  .animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+
+  .animate-float-medium {
+    animation: float-medium 4s ease-in-out infinite;
+  }
+
+  .animate-float-fast {
+    animation: float-fast 3s ease-in-out infinite;
+  }
+
+  /* Mejoras en las animaciones existentes */
+  .logo-shine {
+    background: linear-gradient(45deg, #6366f1, #9333ea, #ec4899, #6366f1);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Efecto de entrada suave para las secciones */
+  .section-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .section-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mejoras en los botones */
+  .btn-enhanced {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-enhanced:hover::before {
+    left: 100%;
+  }
+
+  /* Estilos para el timeline de experiencia */
+  .timeline-item {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: timeline-fade-in 0.8s ease-out forwards;
+  }
+
+  .timeline-item:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .timeline-item:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  .timeline-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .timeline-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+  }
+
+  .timeline-card:hover::before {
+    left: 100%;
+  }
+
+  .timeline-dot {
+    position: relative;
+    animation: pulse-dot 2s infinite;
+  }
+
+  .timeline-card-mobile {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: mobile-card-fade-in 0.6s ease-out forwards;
+  }
+
+  .timeline-card-mobile:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .timeline-card-mobile:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes timeline-fade-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes mobile-card-fade-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+    }
+  }
+
+  /* Responsive timeline */
+  @media (max-width: 768px) {
+    .timeline-item {
+      display: none;
+    }
+  }
+
+  /* Sistema de partículas espaciales */
+  .space-particle {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    z-index: 10000;
+  }
+
+  /* Estrellas pequeñas */
+  .star-small {
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+    box-shadow: 0 0 20px #ffffff, 0 0 40px #ffffff;
+    animation: twinkle 3s infinite ease-in-out;
+    z-index: 10;
+  }
+
+  /* Estrellas medianas */
+  .star-medium {
+    width: 8px;
+    height: 8px;
+    background: #a78bfa;
+    box-shadow: 0 0 25px #a78bfa, 0 0 50px #a78bfa;
+    animation: twinkle 2.5s infinite ease-in-out;
+    z-index: 10;
+  }
+
+  /* Estrellas grandes */
+  .star-large {
+    width: 10px;
+    height: 10px;
+    background: #60a5fa;
+    box-shadow: 0 0 30px #60a5fa, 0 0 60px #60a5fa;
+    animation: twinkle 2s infinite ease-in-out;
+    z-index: 10;
+  }
+
+  /* Planetas pequeños */
+  .planet-small {
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(45deg, #f59e0b, #d97706);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+    animation: float-planet 8s infinite ease-in-out;
+  }
+
+  /* Planetas medianos */
+  .planet-medium {
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    animation: float-planet 10s infinite ease-in-out;
+  }
+
+  /* Cometas */
+  .comet {
+    width: 6px;
+    height: 6px;
+    background: #fbbf24;
+    box-shadow: 0 0 10px #fbbf24;
+    animation: comet-trail 15s infinite linear;
+  }
+
+  .comet::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, #fbbf24, transparent);
+    transform: translateY(-50%);
+    border-radius: 1px;
+  }
+
+  /* Nebulosas */
+  .nebula {
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.3) 0%, rgba(167, 139, 250, 0.1) 50%, transparent 100%);
+    animation: nebula-drift 20s infinite ease-in-out;
+    border-radius: 50%;
+  }
+
+  /* Animaciones */
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes float-planet {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(180deg);
+    }
+  }
+
+  @keyframes comet-trail {
+    0% {
+      transform: translateX(-100vw) translateY(100vh) rotate(-45deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100vw) translateY(-100vh) rotate(-45deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes nebula-drift {
+    0%, 100% {
+      transform: translateX(0px) translateY(0px) scale(1);
+      opacity: 0.3;
+    }
+    25% {
+      transform: translateX(30px) translateY(-20px) scale(1.1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateX(-20px) translateY(-40px) scale(0.9);
+      opacity: 0.4;
+    }
+    75% {
+      transform: translateX(-30px) translateY(20px) scale(1.05);
+      opacity: 0.6;
+    }
+  }
+
+  /* Movimiento de partículas */
+  .particle-float-1 {
+    animation: particle-float-1 12s infinite ease-in-out;
+  }
+
+  .particle-float-2 {
+    animation: particle-float-2 15s infinite ease-in-out;
+  }
+
+  .particle-float-3 {
+    animation: particle-float-3 18s infinite ease-in-out;
+  }
+
+  @keyframes particle-float-1 {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    33% {
+      transform: translateY(-30px) translateX(20px);
+    }
+    66% {
+      transform: translateY(20px) translateX(-15px);
+    }
+  }
+
+  @keyframes particle-float-2 {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    25% {
+      transform: translateY(25px) translateX(-20px);
+    }
+    50% {
+      transform: translateY(-20px) translateX(30px);
+    }
+    75% {
+      transform: translateY(15px) translateX(-10px);
+    }
+  }
+
+  @keyframes particle-float-3 {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    20% {
+      transform: translateY(-25px) translateX(15px);
+    }
+    40% {
+      transform: translateY(30px) translateX(-25px);
+    }
+    60% {
+      transform: translateY(-15px) translateX(20px);
+    }
+    80% {
+      transform: translateY(20px) translateX(-30px);
+    }
+  }
+
+
 
   /* Slime Easter Egg */
   #slime {
@@ -826,7 +1583,60 @@ import Layout from '../layouts/Layout.astro';
     })
   );
 
-  // Efecto de scroll en navbar (simplificado)
+  // Sistema de progreso y detección de secciones
+  const progressBar = document.getElementById('progress-bar');
+  const sections = ['about', 'skills', 'experience', 'projects', 'contact'];
+  let currentSection = 'about';
+
+  function updateProgress() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    
+    if (progressBar) {
+      progressBar.style.width = `${Math.min(scrollPercent, 100)}%`;
+    }
+  }
+
+  function updateActiveSection() {
+    const scrollPosition = window.scrollY + 100; // Offset para el navbar
+    
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const section = document.getElementById(sections[i]);
+      if (section && scrollPosition >= section.offsetTop) {
+        if (currentSection !== sections[i]) {
+          currentSection = sections[i];
+          updateSectionIndicators();
+        }
+        break;
+      }
+    }
+  }
+
+  function updateSectionIndicators() {
+    // Actualizar enlaces del navbar
+    document.querySelectorAll('.nav-link').forEach(link => {
+      const section = link.getAttribute('data-section');
+      const indicator = link.querySelector('.section-indicator');
+      
+      if (!indicator) return;
+      
+      // Remover todas las clases
+      link.classList.remove('active-link');
+      indicator.classList.remove('completed', 'current');
+      
+      if (section === currentSection) {
+        // Sección actual
+        link.classList.add('active-link');
+        indicator.classList.add('current');
+      } else if (sections.indexOf(section || '') < sections.indexOf(currentSection)) {
+        // Sección completada
+        indicator.classList.add('completed');
+      }
+    });
+  }
+
+  // Efecto de scroll en navbar y progreso
   window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
     
@@ -835,6 +1645,234 @@ import Layout from '../layouts/Layout.astro';
     } else {
       navbar?.classList.remove('navbar-scrolled');
     }
+    
+    updateProgress();
+    updateActiveSection();
+  });
+
+  // Inicializar indicadores al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    updateProgress();
+    updateActiveSection();
+  });
+
+  // Sistema de partículas espaciales
+  function createSpaceParticles() {
+    const container = document.getElementById('space-particles');
+    if (!container) {
+      console.log('Container space-particles no encontrado');
+      return;
+    }
+
+    console.log('Creando partículas espaciales...');
+
+    // Limpiar partículas existentes
+    container.innerHTML = '';
+
+    const particleTypes = [
+      { class: 'star-small', count: 20 },
+      { class: 'star-medium', count: 15 },
+      { class: 'star-large', count: 10 },
+      { class: 'planet-small', count: 5 },
+      { class: 'planet-medium', count: 3 },
+      { class: 'comet', count: 2 },
+      { class: 'nebula', count: 2 }
+    ];
+
+    particleTypes.forEach(type => {
+      console.log(`Creando ${type.count} partículas de tipo ${type.class}`);
+      for (let i = 0; i < type.count; i++) {
+        const particle = document.createElement('div');
+        
+        // Posición aleatoria
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        
+        // Estilos base para todas las partículas
+        let baseStyles = `
+          position: absolute;
+          left: ${x}%;
+          top: ${y}%;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 2;
+        `;
+        
+        // Estilos específicos según el tipo
+        let specificStyles = '';
+        let animationName = 'twinkle';
+        
+        switch(type.class) {
+          case 'star-small':
+            specificStyles = `
+              width: 4px;
+              height: 4px;
+              background: #ffffff;
+              box-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff;
+            `;
+            break;
+          case 'star-medium':
+            specificStyles = `
+              width: 6px;
+              height: 6px;
+              background: #a78bfa;
+              box-shadow: 0 0 20px #a78bfa, 0 0 40px #a78bfa;
+            `;
+            break;
+          case 'star-large':
+            specificStyles = `
+              width: 8px;
+              height: 8px;
+              background: #60a5fa;
+              box-shadow: 0 0 25px #60a5fa, 0 0 50px #60a5fa;
+            `;
+            break;
+          case 'planet-small':
+            specificStyles = `
+              width: 10px;
+              height: 10px;
+              background: linear-gradient(45deg, #f59e0b, #d97706);
+              box-shadow: 0 0 20px rgba(245, 158, 11, 0.7);
+            `;
+            animationName = 'float-planet';
+            break;
+          case 'planet-medium':
+            specificStyles = `
+              width: 14px;
+              height: 14px;
+              background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+              box-shadow: 0 0 25px rgba(139, 92, 246, 0.7);
+            `;
+            animationName = 'float-planet';
+            break;
+          case 'comet':
+            specificStyles = `
+              width: 6px;
+              height: 6px;
+              background: #fbbf24;
+              box-shadow: 0 0 15px #fbbf24;
+            `;
+            animationName = 'comet-trail';
+            break;
+          case 'nebula':
+            specificStyles = `
+              width: 30px;
+              height: 30px;
+              background: radial-gradient(circle, rgba(167, 139, 250, 0.4) 0%, rgba(167, 139, 250, 0.2) 50%, transparent 100%);
+            `;
+            animationName = 'nebula-drift';
+            break;
+        }
+        
+        // Aplicar todos los estilos
+        particle.style.cssText = baseStyles + specificStyles + `
+          animation: ${animationName} ${2 + Math.random() * 3}s infinite ease-in-out;
+          animation-delay: ${Math.random() * 5}s;
+        `;
+        
+        // Para cometas, agregar dirección aleatoria
+        if (type.class === 'comet') {
+          const angle = Math.random() * 360;
+          particle.style.transform = `rotate(${angle}deg)`;
+          particle.style.animationDelay = `${Math.random() * 15}s`;
+        }
+
+        container.appendChild(particle);
+        console.log(`Partícula ${type.class} creada en ${x}%, ${y}%`);
+      }
+    });
+
+    console.log(`Total de partículas creadas: ${container.children.length}`);
+
+    // Crear cometas periódicos
+    setInterval(() => {
+      if (Math.random() < 0.3) { // 30% de probabilidad cada 8 segundos
+        createComet();
+      }
+    }, 8000);
+  }
+
+  function createComet() {
+    const container = document.getElementById('space-particles');
+    if (!container) return;
+
+    const comet = document.createElement('div');
+    comet.className = 'space-particle comet';
+    
+    // Posición inicial aleatoria en los bordes
+    const side = Math.floor(Math.random() * 4);
+    switch(side) {
+      case 0: // Top
+        comet.style.left = `${Math.random() * 100}%`;
+        comet.style.top = '-10px';
+        break;
+      case 1: // Right
+        comet.style.left = '110%';
+        comet.style.top = `${Math.random() * 100}%`;
+        break;
+      case 2: // Bottom
+        comet.style.left = `${Math.random() * 100}%`;
+        comet.style.top = '110%';
+        break;
+      case 3: // Left
+        comet.style.left = '-10px';
+        comet.style.top = `${Math.random() * 100}%`;
+        break;
+    }
+
+    container.appendChild(comet);
+
+    // Remover el cometa después de la animación
+    setTimeout(() => {
+      if (comet.parentNode) {
+        comet.parentNode.removeChild(comet);
+      }
+    }, 15000);
+  }
+
+  // Efecto de escritura letra por letra
+  function typeWriter(elementId: string, text: string, speed: number = 100, delay: number = 0) {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        const element = document.getElementById(elementId);
+        if (!element) {
+          resolve();
+          return;
+        }
+        
+        let i = 0;
+        element.textContent = '';
+        
+        function type() {
+          if (i < text.length) {
+            if (element) {
+              element.textContent += text.charAt(i);
+            }
+            i++;
+            setTimeout(type, speed);
+          } else {
+            resolve();
+          }
+        }
+        
+        type();
+      }, delay);
+    });
+  }
+
+  // Inicializar efectos cuando se carga la página
+  document.addEventListener('DOMContentLoaded', async () => {
+    createSpaceParticles();
+    
+    // Secuencia de escritura del texto
+    await typeWriter('greeting-text', 'Hola, soy', 80, 500);
+    await typeWriter('name-text', 'Jesús Andrés Cañaveral Florez', 60, 300);
+    await typeWriter('description-text', 'Desarrollador y analista apasionado por crear experiencias digitales únicas', 40, 500);
+  });
+
+  // Recrear partículas cuando se redimensiona la ventana
+  window.addEventListener('resize', () => {
+    setTimeout(createSpaceParticles, 100);
   });
 
 
