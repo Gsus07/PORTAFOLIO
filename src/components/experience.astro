@@ -25,57 +25,13 @@
       <!-- Línea central del timeline -->
       <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 rounded-full opacity-30"></div>
       
-      <!-- Experiencia 1 -->
-      <div class="timeline-item mb-12 flex items-center">
-        <div class="timeline-content w-5/12 pr-8 text-right">
-          <div class="timeline-card bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-            <div class="timeline-badge bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
-              2024 - Actual
-            </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2">Ingeniero de Datos</h3>
-            <p class="text-indigo-600 font-medium mb-3">OHI – Organización Humana Integral</p>
-            <ul class="text-slate-600 text-sm space-y-2">
-              <li class="flex items-start gap-2">
-                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
-                Limpieza y extracción de datos
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
-                Creación de informes para análisis
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
-                Gestión en SQL Server: extracción, tablas y funciones
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
-                Tablas, funciones y disparadores en Supabase
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
-                Procesamiento y visualización de datos con Python
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
-                Automatización de reportes y análisis estadístico
-              </li>
-            </ul>
-          </div>
-        </div>
-        
-        <!-- Punto central del timeline -->
-        <div class="timeline-dot w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full border-4 border-white shadow-lg z-10 flex-shrink-0"></div>
-        
-        <div class="w-5/12 pl-8"></div>
-      </div>
-
-      <!-- Experiencia 2 -->
+      <!-- Experiencia 1: más reciente primero -->
       <div class="timeline-item mb-12 flex items-center">
         <div class="w-5/12 pr-8"></div>
-        
+
         <!-- Punto central del timeline -->
         <div class="timeline-dot w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full border-4 border-white shadow-lg z-10 flex-shrink-0"></div>
-        
+
         <div class="timeline-content w-5/12 pl-8">
           <div class="timeline-card bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
             <div class="timeline-badge bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
@@ -97,9 +53,58 @@
         </div>
       </div>
 
+      <!-- Experiencia 2 -->
+      <div class="timeline-item mb-12 flex items-center">
+        <div class="timeline-content w-5/12 pr-8 text-right">
+          <div class="timeline-card bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <div class="timeline-badge bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
+              2024 - Actual
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-2">Ingeniero de Datos</h3>
+            <p class="text-indigo-600 font-medium mb-3">OHI – Organización Humana Integral</p>
+            <ul class="text-slate-600 text-sm space-y-2">
+              <li class="flex items-start gap-2 justify-end">
+                <span class="text-right">Limpieza y extracción de datos</span>
+                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
+              </li>
+              <li class="flex items-start gap-2 justify-end">
+                <span class="text-right">Creación de informes para análisis</span>
+                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
+              </li>
+              <li class="flex items-start gap-2 justify-end">
+                <span class="text-right">Gestión en SQL Server: extracción, tablas y funciones</span>
+                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
+              </li>
+              <li class="flex items-start gap-2 justify-end">
+                <span class="text-right">Tablas, funciones y disparadores en Supabase</span>
+                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
+              </li>
+              <li class="flex items-start gap-2 justify-end">
+                <span class="text-right">Procesamiento y visualización de datos con Python</span>
+                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
+              </li>
+              <li class="flex items-start gap-2 justify-end">
+                <span class="text-right">Automatización de reportes y análisis estadístico</span>
+                <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Punto central del timeline -->
+        <div class="timeline-dot w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full border-4 border-white shadow-lg z-10 flex-shrink-0"></div>
+
+        <div class="w-5/12 pl-8"></div>
+      </div>
+
       <!-- Experiencia 3 -->
       <div class="timeline-item flex items-center">
-        <div class="timeline-content w-5/12 pr-8 text-right">
+        <div class="w-5/12 pr-8"></div>
+
+        <!-- Punto central del timeline -->
+        <div class="timeline-dot w-6 h-6 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full border-4 border-white shadow-lg z-10 flex-shrink-0"></div>
+
+        <div class="timeline-content w-5/12 pl-8">
           <div class="timeline-card bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
             <div class="timeline-badge bg-gradient-to-r from-sky-500 to-indigo-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
               2022 - 2023
@@ -107,31 +112,38 @@
             <h3 class="text-xl font-bold text-slate-800 mb-2">Desarrollador (Proyecto Universitario)</h3>
             <p class="text-sky-600 font-medium mb-3">Universidad Popular del Cesar (UPC)</p>
             <ul class="text-slate-600 text-sm space-y-2">
-              <li class="flex items-start gap-2 justify-end">
-                <span class="text-right">Desarrollo de página y repositorio</span>
+              <li class="flex items-start gap-2">
                 <span class="w-2 h-2 bg-sky-500 rounded-full mt-2 flex-shrink-0"></span>
+                Desarrollo de página y repositorio
               </li>
-              <li class="flex items-start gap-2 justify-end">
-                <span class="text-right">Uso de APIs de Google para seguridad</span>
+              <li class="flex items-start gap-2">
                 <span class="w-2 h-2 bg-sky-500 rounded-full mt-2 flex-shrink-0"></span>
+                Uso de APIs de Google para seguridad
               </li>
-              <li class="flex items-start gap-2 justify-end">
-                <span class="text-right">Metodologías ágiles y trabajo colaborativo</span>
+              <li class="flex items-start gap-2">
                 <span class="w-2 h-2 bg-sky-500 rounded-full mt-2 flex-shrink-0"></span>
+                Metodologías ágiles y trabajo colaborativo
               </li>
             </ul>
           </div>
         </div>
-        
-        <!-- Punto central del timeline -->
-        <div class="timeline-dot w-6 h-6 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full border-4 border-white shadow-lg z-10 flex-shrink-0"></div>
-        
-        <div class="w-5/12 pl-8"></div>
       </div>
     </div>
 
     <!-- Versión móvil del timeline -->
     <div class="block md:hidden space-y-8">
+      <div class="timeline-card-mobile bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg">
+        <div class="timeline-badge bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
+          2025 - Actual
+        </div>
+        <h3 class="text-xl font-bold text-slate-800 mb-2">Desarrollador</h3>
+        <p class="text-purple-600 font-medium mb-3">OHI – Organización Humana Integral</p>
+        <ul class="text-slate-600 text-sm space-y-2">
+          <li>• Automatización de procesos para radicación de facturas (RIPS) con Python</li>
+          <li>• Desarrollo de aplicaciones web con React, Tailwind y Astro</li>
+        </ul>
+      </div>
+
       <div class="timeline-card-mobile bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg">
         <div class="timeline-badge bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
           2024 - Actual
@@ -145,18 +157,6 @@
           <li>• Tablas, funciones y disparadores en Supabase</li>
           <li>• Procesamiento y visualización de datos con Python</li>
           <li>• Automatización de reportes y análisis estadístico</li>
-        </ul>
-      </div>
-
-      <div class="timeline-card-mobile bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg">
-        <div class="timeline-badge bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
-          2025 - Actual
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-2">Desarrollador</h3>
-        <p class="text-purple-600 font-medium mb-3">OHI – Organización Humana Integral</p>
-        <ul class="text-slate-600 text-sm space-y-2">
-          <li>• Automatización de procesos para radicación de facturas (RIPS) con Python</li>
-          <li>• Desarrollo de aplicaciones web con React, Tailwind y Astro</li>
         </ul>
       </div>
 
