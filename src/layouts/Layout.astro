@@ -24,6 +24,30 @@ import "../styles/global.css";
 	</head>
 	<body>
 		<slot />
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				// Auto-aplica scroll-animate + stagger a cada skill card
+				document.querySelectorAll<HTMLElement>('.skill-card').forEach((el, i) => {
+					el.classList.add('scroll-animate');
+					el.style.transitionDelay = `${i * 0.06}s`;
+				});
+
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('in-view');
+								observer.unobserve(entry.target);
+							}
+						});
+					},
+					{ threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+				);
+
+				document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right')
+					.forEach((el) => observer.observe(el));
+			});
+		</script>
 	</body>
 </html>
 
