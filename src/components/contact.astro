@@ -1,5 +1,5 @@
 ---
-// Contact component
+const web3FormsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
 ---
 
 <!-- Contact -->
@@ -77,9 +77,13 @@
 
       <!-- Formulario -->
       <form id="contact-form" class="space-y-6 rounded-2xl bg-white p-6 shadow-md scroll-animate-right" autocomplete="off">
+        <input type="hidden" name="access_key" value={web3FormsKey} />
+        <input type="hidden" name="subject" value="Nuevo mensaje desde tu portafolio" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
         <div>
           <input
             type="text"
+            name="name"
             placeholder="Tu nombre"
             required
             class="w-full rounded-lg border border-slate-200 p-3 text-sm focus:border-indigo-500 focus:outline-none transition-all duration-300"
@@ -88,6 +92,7 @@
         <div>
           <input
             type="email"
+            name="email"
             placeholder="Tu email"
             required
             class="w-full rounded-lg border border-slate-200 p-3 text-sm focus:border-indigo-500 focus:outline-none transition-all duration-300"
@@ -96,6 +101,7 @@
         <div>
           <input
             type="text"
+            name="asunto"
             placeholder="Asunto"
             required
             class="w-full rounded-lg border border-slate-200 p-3 text-sm focus:border-indigo-500 focus:outline-none transition-all duration-300"
@@ -103,12 +109,14 @@
         </div>
         <div>
           <textarea
+            name="message"
             rows="5"
             placeholder="Tu mensaje"
             required
             class="w-full rounded-lg border border-slate-200 p-3 text-sm focus:border-indigo-500 focus:outline-none transition-all duration-300"
           ></textarea>
         </div>
+        <div id="form-status" class="hidden text-center text-sm font-semibold py-2 px-4 rounded-lg"></div>
         <button
           type="submit"
           aria-label="Enviar mensaje de contacto"
@@ -122,21 +130,48 @@
 </section>
 
 <script>
-  // Formulario con animación de éxito
-  document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+  document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement | null;
     if (!form) return;
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    const status = document.getElementById('form-status');
     if (!btn) return;
+
     btn.disabled = true;
-    btn.textContent = '¡Enviado!';
-    btn.classList.add('bg-green-500');
-    setTimeout(() => {
+    btn.textContent = 'Enviando...';
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+
+      if (res.ok && json.success) {
+        if (status) {
+          status.textContent = '¡Mensaje enviado! Te responderé pronto.';
+          status.className = 'text-center text-sm font-semibold py-2 px-4 rounded-lg bg-green-100 text-green-700';
+        }
+        form.reset();
+      } else {
+        throw new Error(json.message || 'Error al enviar');
+      }
+    } catch (err) {
+      if (status) {
+        status.textContent = 'Hubo un error al enviar. Inténtalo de nuevo.';
+        status.className = 'text-center text-sm font-semibold py-2 px-4 rounded-lg bg-red-100 text-red-700';
+      }
+    } finally {
       btn.disabled = false;
       btn.textContent = 'Enviar mensaje';
-      btn.classList.remove('bg-green-500');
-      form.reset();
-    }, 1800);
+      setTimeout(() => {
+        if (status) status.className = 'hidden';
+      }, 5000);
+    }
   });
 </script>
