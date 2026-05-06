@@ -74,6 +74,42 @@ const projects: Project[] = [
     codeUrl: '#',
     webUrl: '#',
   },
+  {
+    name: 'TINCHAT',
+    description:
+      'Red social enfocada en videojuegos para un círculo cercano: muro principal, submuros por categorías, comentarios, reacciones, respuestas, temas, estilos personalizados y subida de imágenes.',
+    status: 'Completado',
+    tags: ['React', 'Supabase', 'Supabase Storage', 'Tailwind CSS'],
+    tagColor: 'bg-violet-100 text-violet-700',
+    accentColor: 'violet',
+    image: '',
+    codeUrl: '#',
+    webUrl: '#',
+  },
+  {
+    name: 'MERIAPP',
+    description:
+      'Aplicación web para gestionar las meriendas de un equipo de oficina: inventario de productos, registro de consumos y control de presupuestos.',
+    status: 'Completado',
+    tags: ['React', 'Supabase', 'SQL', 'Tailwind CSS'],
+    tagColor: 'bg-yellow-100 text-yellow-700',
+    accentColor: 'yellow',
+    image: '',
+    codeUrl: '#',
+    webUrl: '#',
+  },
+  {
+    name: 'REGQRAPP',
+    description:
+      'Aplicación para el registro de ingresos y personal vinculado a vehículos en la Línea 1 del Metro de Bogotá. Genera tickets y códigos QR que, al escanearse, muestran la información del propietario y vehículo, y permiten registrar salidas y nuevos ingresos.',
+    status: 'Completado',
+    tags: ['React', 'Firebase', 'QR Code', 'Tailwind CSS'],
+    tagColor: 'bg-rose-100 text-rose-700',
+    accentColor: 'rose',
+    image: '',
+    codeUrl: '#',
+    webUrl: '#',
+  },
 ];
 
 const statusColors: Record<Project['status'], string> = {
@@ -88,6 +124,9 @@ const accentStyles: Record<string, { hover: string; btn: string; outline: string
   orange:  { hover: 'group-hover:text-orange-600',  btn: 'from-orange-500 to-red-500',     outline: 'border-orange-300 text-orange-600',   outlineHover: 'hover:bg-orange-50' },
   purple:  { hover: 'group-hover:text-purple-600',  btn: 'from-purple-500 to-indigo-600',  outline: 'border-purple-300 text-purple-600',   outlineHover: 'hover:bg-purple-50' },
   sky:     { hover: 'group-hover:text-sky-600',     btn: 'from-sky-500 to-blue-600',       outline: 'border-sky-300 text-sky-600',         outlineHover: 'hover:bg-sky-50' },
+  yellow:  { hover: 'group-hover:text-yellow-600',  btn: 'from-yellow-400 to-orange-400',  outline: 'border-yellow-300 text-yellow-600',   outlineHover: 'hover:bg-yellow-50' },
+  rose:    { hover: 'group-hover:text-rose-600',    btn: 'from-rose-500 to-pink-600',      outline: 'border-rose-300 text-rose-600',       outlineHover: 'hover:bg-rose-50' },
+  violet:  { hover: 'group-hover:text-violet-600',  btn: 'from-violet-500 to-purple-600',  outline: 'border-violet-300 text-violet-600',   outlineHover: 'hover:bg-violet-50' },
 };
 ---
 
