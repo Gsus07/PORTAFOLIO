@@ -265,4 +265,103 @@
   .animate-float-fast {
     animation: float-fast 3s ease-in-out infinite;
   }
+
+  /* ── Skill card tilt perspective ── */
+  .skill-card {
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  /* ── Icon glow on hover ── */
+  .skill-card:hover .skill-icon {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+
+  /* ── Tooltip ── */
+  .skill-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background: rgba(15, 23, 42, 0.92);
+    color: #e2e8f0;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 50;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    text-align: center;
+  }
+  .skill-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(15, 23, 42, 0.92);
+  }
+  .skill-card:hover .skill-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 </style>
+
+<script>
+  const skillLevels: Record<string, string> = {
+    'HTML5': 'Avanzado',
+    'CSS3': 'Avanzado',
+    'JavaScript': 'Avanzado',
+    'React': 'Avanzado',
+    'TypeScript': 'Intermedio',
+    'Astro': 'Avanzado',
+    'Node.js': 'Intermedio',
+    'Python': 'Avanzado',
+    'MongoDB': 'Intermedio',
+    'SQL Server': 'Avanzado',
+    'Git': 'Avanzado',
+    'Excel': 'Avanzado',
+    'Pandas': 'Avanzado',
+    'Power BI': 'Intermedio',
+    'Supabase': 'Avanzado',
+    'Tailwind CSS': 'Avanzado',
+    'Firebase': 'Intermedio',
+    'React Native': 'Intermedio',
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll<HTMLElement>('.skill-card');
+
+    cards.forEach((card) => {
+      // ── Add tooltip ──
+      const titleEl = card.querySelector('.skill-title');
+      if (titleEl) {
+        const name = titleEl.textContent?.trim() ?? '';
+        const level = skillLevels[name] ?? 'Conocido';
+        const tooltip = document.createElement('div');
+        tooltip.className = 'skill-tooltip';
+        tooltip.textContent = `${name} · ${level}`;
+        card.appendChild(tooltip);
+      }
+
+      // ── Tilt 3D effect ──
+      card.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width  / 2;
+        const cy = rect.top  + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width  / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        card.style.transform = `perspective(600px) rotateX(${-dy * 10}deg) rotateY(${dx * 10}deg) translateY(-8px) scale(1.03)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  });
+</script>

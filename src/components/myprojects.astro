@@ -131,8 +131,17 @@ const accentStyles: Record<string, { hover: string; btn: string; outline: string
 ---
 
 <!-- Projects -->
-<section id="projects" class="bg-white py-24">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<section id="projects" class="bg-gradient-to-br from-slate-50 to-indigo-50/40 py-24 relative overflow-hidden">
+  <!-- Floating background particles -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="proj-particle proj-p1"></div>
+    <div class="proj-particle proj-p2"></div>
+    <div class="proj-particle proj-p3"></div>
+    <div class="proj-particle proj-p4"></div>
+    <div class="proj-particle proj-p5"></div>
+  </div>
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <h2 class="text-center text-3xl font-bold text-slate-800 sm:text-4xl scroll-animate">
       Mis Proyectos
     </h2>
@@ -145,21 +154,25 @@ const accentStyles: Record<string, { hover: string; btn: string; outline: string
         const accent = accentStyles[project.accentColor];
         return (
           <div
-            class="scroll-animate rounded-2xl border border-slate-100 bg-white shadow-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl group overflow-hidden flex flex-col"
+            class="proj-card scroll-animate rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-md transition-all duration-400 group overflow-hidden flex flex-col"
             style={`transition-delay: ${i * 0.1}s`}
           >
 
-            <!-- Imagen del proyecto -->
-            <div class="h-44 w-full bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden flex items-center justify-center">
+            <!-- Imagen del proyecto + overlay -->
+            <div class="h-44 w-full bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden flex items-center justify-center relative">
               {project.image ? (
                 <img
                   src={project.image}
                   alt={`Captura de ${project.name}`}
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               ) : (
                 <span class="text-slate-400 text-sm select-none">Sin imagen aún</span>
               )}
+              <!-- Hover overlay -->
+              <div class="proj-overlay absolute inset-0 bg-gradient-to-t from-indigo-900/80 via-purple-800/40 to-transparent flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-400">
+                <span class="text-white text-xs font-semibold tracking-wide uppercase px-3 text-center">{project.name}</span>
+              </div>
             </div>
 
             <!-- Contenido -->
@@ -168,16 +181,18 @@ const accentStyles: Record<string, { hover: string; btn: string; outline: string
                 <h3 class={`text-lg font-semibold text-slate-800 transition-colors duration-300 ${accent.hover}`}>
                   {project.name}
                 </h3>
-                <span class={`rounded-full ${statusColors[project.status]} px-2 py-0.5 text-xs font-medium text-white shrink-0`}>
+                <!-- Status badge with pulsing dot -->
+                <span class={`flex items-center gap-1.5 rounded-full ${statusColors[project.status]} px-2 py-0.5 text-xs font-medium text-white shrink-0`}>
+                  <span class="status-pulse-dot inline-block w-1.5 h-1.5 rounded-full bg-white/90"></span>
                   {project.status}
                 </span>
               </div>
 
               <p class="mt-3 text-sm text-slate-600 flex-1">{project.description}</p>
 
-              <div class="mt-4 flex flex-wrap gap-2">
+              <div class="proj-tags mt-4 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
-                  <span class={`rounded-full ${project.tagColor} px-2 py-0.5 text-xs font-medium`}>{tag}</span>
+                  <span class={`rounded-full ${project.tagColor} px-2 py-0.5 text-xs font-medium transition-transform duration-300`}>{tag}</span>
                 ))}
               </div>
 
@@ -220,3 +235,77 @@ const accentStyles: Record<string, { hover: string; btn: string; outline: string
     </div>
   </div>
 </section>
+
+<style>
+  /* ── Card glassmorphism hover ── */
+  .proj-card {
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s ease;
+  }
+  .proj-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 28px 56px -10px rgba(99,102,241,0.22), 0 12px 24px -4px rgba(0,0,0,0.1);
+  }
+
+  /* ── Status pulsing dot ── */
+  @keyframes pulse-dot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%       { transform: scale(1.6); opacity: 0.6; }
+  }
+  .status-pulse-dot {
+    animation: pulse-dot 1.8s ease-in-out infinite;
+  }
+
+  /* ── Tags fan on hover ── */
+  .proj-card:hover .proj-tags span {
+    transform: translateY(-3px);
+  }
+  .proj-card:hover .proj-tags span:nth-child(odd) {
+    transform: translateY(-5px) rotate(-1.5deg);
+  }
+  .proj-card:hover .proj-tags span:nth-child(even) {
+    transform: translateY(-4px) rotate(1.5deg);
+  }
+
+  /* ── Floating background particles ── */
+  .proj-particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.12;
+    filter: blur(40px);
+  }
+  @keyframes proj-float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%       { transform: translateY(-30px) scale(1.08); }
+  }
+  .proj-p1 {
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, #818cf8, transparent);
+    top: 5%; left: 5%;
+    animation: proj-float 10s ease-in-out infinite;
+  }
+  .proj-p2 {
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, #c084fc, transparent);
+    top: 20%; right: 8%;
+    animation: proj-float 14s ease-in-out infinite reverse;
+  }
+  .proj-p3 {
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, #38bdf8, transparent);
+    bottom: 10%; left: 30%;
+    animation: proj-float 12s ease-in-out infinite 2s;
+  }
+  .proj-p4 {
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, #f472b6, transparent);
+    bottom: 20%; right: 15%;
+    animation: proj-float 9s ease-in-out infinite 1s;
+  }
+  .proj-p5 {
+    width: 100px; height: 100px;
+    background: radial-gradient(circle, #a78bfa, transparent);
+    top: 50%; left: 50%;
+    animation: proj-float 16s ease-in-out infinite 3s;
+  }
+</style>
